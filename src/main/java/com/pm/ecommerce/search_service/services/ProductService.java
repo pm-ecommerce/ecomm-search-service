@@ -12,11 +12,8 @@ public class ProductService {
     @Autowired
     ProductRepository productRepository;
 
-    //    public List<Product> getAllProductByCateGoryId(){
-//        return productRepository.getAllByCategoryId(categoryId);
-//    }
-    public List<Product> getAllProducts() {
-        return productRepository.findAll();
+    public List<Product> getProductsByCategory_Id(Integer categoryId){
+        return productRepository.getProductsByCategory_Id(categoryId);
     }
 
     public Product getProductById(int id) {
