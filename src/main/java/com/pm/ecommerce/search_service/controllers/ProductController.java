@@ -23,14 +23,14 @@ public class ProductController {
     ProductRepository productRepository;
 
     @GetMapping("/category")
-    public ResponseEntity<ApiResponse<List<Product>>> getProductByCategoryId(){
+    public ResponseEntity<ApiResponse<List<Product>>> getProductByCategoryId() {
         ApiResponse<List<Product>> response = new ApiResponse<>();
-        try{
+        try {
             List<Product> productList = productRepository.findAll();
 
             response.setMessage("List of Product");
             response.setData(productList);
-        } catch (Exception e){
+        } catch (Exception e) {
             response.setMessage(e.getMessage());
             response.setStatus(500);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
@@ -39,14 +39,30 @@ public class ProductController {
     }
 
     @GetMapping("/")
-    public ResponseEntity<ApiResponse<Product>> getProduct(){
+    public ResponseEntity<ApiResponse<List<Product>>> getProduct() {
+        ApiResponse<List<Product>> response = new ApiResponse<>();
+        try {
+            List<Product> products = productService.getAllProducts();
+
+            response.setMessage("List of Product");
+            response.setData(products);
+        } catch (Exception e) {
+            response.setMessage(e.getMessage());
+            response.setStatus(500);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("{id}")
+    public ResponseEntity<ApiResponse<Product>> getProductById(@PathVariable int id) {
         ApiResponse<Product> response = new ApiResponse<>();
-        try{
-            Product product = productRepository.getOne(1);
+        try {
+            Product product = productService.getProductById(id);
 
             response.setMessage("List of Product");
             response.setData(product);
-        } catch (Exception e){
+        } catch (Exception e) {
             response.setMessage(e.getMessage());
             response.setStatus(500);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
