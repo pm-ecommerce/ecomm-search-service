@@ -6,10 +6,7 @@ import com.pm.ecommerce.search_service.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -48,4 +45,40 @@ public class ProductController {
         }
         return ResponseEntity.ok(response);
     }
+
+    @GetMapping("/search/{productName}")
+    public ResponseEntity<ApiResponse<List<Product>>> getProductsByName(@PathVariable String productName) {
+        ApiResponse<List<Product>> response = new ApiResponse<>();
+        try {
+            List<Product> productList = productService.getProductsByName(productName);
+            response.setMessage("List of Product by name");
+            response.setData(productList);
+        } catch (Exception e) {
+            response.setMessage(e.getMessage());
+            response.setStatus(500);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<ApiResponse<List<Product>>> getProductsByFilter(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) Integer categoryId,
+            @RequestParam(required = false) Double highPrice,
+            @RequestParam(required = false) Double lowPrice
+    ) {
+        ApiResponse<List<Product>> response = new ApiResponse<>();
+        try {
+            List<Product> productList = productService.getProductsByFilter(name, categoryId, highPrice, lowPrice);
+            response.setMessage("List of Product by filter");
+            response.setData(productList);
+        } catch (Exception e) {
+            response.setMessage(e.getMessage());
+            response.setStatus(500);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+        return ResponseEntity.ok(response);
+    }
+
 }
