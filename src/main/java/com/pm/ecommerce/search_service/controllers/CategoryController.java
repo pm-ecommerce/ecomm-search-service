@@ -19,13 +19,13 @@ public class CategoryController {
     CategoryService categoryService;
 
     @GetMapping("")
-    public ResponseEntity<ApiResponse<List<Category>>> getAllCategory(){
+    public ResponseEntity<ApiResponse<List<Category>>> getAllCategory() {
         ApiResponse<List<Category>> response = new ApiResponse<>();
-        try{
+        try {
             List<Category> categoryList = categoryService.getAllCategories();
             response.setMessage("List of Category");
             response.setData(categoryList);
-        } catch (Exception e){
+        } catch (Exception e) {
             response.setMessage(e.getMessage());
             response.setStatus(500);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
