@@ -2,6 +2,7 @@ package com.pm.ecommerce.search_service.controllers;
 
 import com.pm.ecommerce.entities.ApiResponse;
 import com.pm.ecommerce.entities.Product;
+import com.pm.ecommerce.search_service.models.ProductResult;
 import com.pm.ecommerce.search_service.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,10 +18,10 @@ public class ProductController {
     ProductService productService;
 
     @GetMapping("/category/{categoryId}")
-    public ResponseEntity<ApiResponse<List<Product>>> getProductByCategoryId(@PathVariable Integer categoryId) {
-        ApiResponse<List<Product>> response = new ApiResponse<>();
+    public ResponseEntity<ApiResponse<List<ProductResult>>> getProductByCategoryId(@PathVariable Integer categoryId) {
+        ApiResponse<List<ProductResult>> response = new ApiResponse<>();
         try {
-            List<Product> productList = productService.getProductsByCategory_Id(categoryId);
+            List<ProductResult> productList = productService.getProductsByCategoryId(categoryId);
             response.setMessage("List of Product by Category");
             response.setData(productList);
         } catch (Exception e) {
@@ -46,13 +47,13 @@ public class ProductController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/search/{productName}")
-    public ResponseEntity<ApiResponse<List<Product>>> getProductsByName(@PathVariable String productName) {
-        ApiResponse<List<Product>> response = new ApiResponse<>();
+    @GetMapping("/search/{slug}")
+    public ResponseEntity<ApiResponse<Product>> getProductsByName(@PathVariable String slug) {
+        ApiResponse<Product> response = new ApiResponse<>();
         try {
-            List<Product> productList = productService.getProductsByName(productName);
-            response.setMessage("List of Product by name");
-            response.setData(productList);
+            Product product = productService.getProductsBySlug(slug);
+            response.setMessage("Product by slug");
+            response.setData(product);
         } catch (Exception e) {
             response.setMessage(e.getMessage());
             response.setStatus(500);
@@ -62,15 +63,15 @@ public class ProductController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<ApiResponse<List<Product>>> getProductsByFilter(
+    public ResponseEntity<ApiResponse<List<ProductResult>>> getProductsByFilter(
             @RequestParam(required = false) String name,
             @RequestParam(required = false) Integer categoryId,
             @RequestParam(required = false) Double highPrice,
             @RequestParam(required = false) Double lowPrice
     ) {
-        ApiResponse<List<Product>> response = new ApiResponse<>();
+        ApiResponse<List<ProductResult>> response = new ApiResponse<>();
         try {
-            List<Product> productList = productService.getProductsByFilter(name, categoryId, highPrice, lowPrice);
+            List<ProductResult> productList = productService.getProductsByFilter(name, categoryId, highPrice, lowPrice);
             response.setMessage("List of Product by filter");
             response.setData(productList);
         } catch (Exception e) {
