@@ -13,7 +13,9 @@ public interface SearchRepository extends JpaRepository<Product, Integer> {
 
 //    @Query("SELECT p FROM Product p WHERE (:name is null or p.name like :name) and (:categoryId is null or p.category.id = :categoryId) and (:highPrice is null or p.price <=:highPrice) and (:lowPrice is null or p.price >=:lowPrice) ORDER BY p.id ")
 //    List<Product> getProductsByFilter(@Param("name") String name, @Param("categoryId") Integer categoryId , @Param("highPrice") Double highPrice, @Param("lowPrice") Double lowPrice, Integer limit, Integer offset);
-
+ // status of product (published)
+    //status of category (deleted = false)
+    //status of vendor (approved)
     @Query(value="SELECT * FROM products p WHERE p.name like ?1 and p.category_id =?2 and p.price BETWEEN ?4 and ?3 ORDER BY p.id limit ?5 offset ?6", nativeQuery = true)
     List<Product> getProductsByFilter(@Param("name") String name, @Param("categoryId") Integer categoryId , @Param("highPrice") Double highPrice, @Param("lowPrice") Double lowPrice, @Param("limit") Integer limit, @Param("offset") Integer offset);
 
