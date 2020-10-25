@@ -20,7 +20,7 @@ public class SearchController {
     @Autowired
     SearchService searchService;
 
-    @GetMapping("/filter")
+    @GetMapping("")
     public ResponseEntity<ApiResponse<List<ProductResult>>> getProductsByFilter(
             @RequestParam(required = true,defaultValue = "") String name,
             @RequestParam(required = true,defaultValue = "0") Integer categoryId,

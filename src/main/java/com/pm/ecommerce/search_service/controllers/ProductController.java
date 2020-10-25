@@ -17,22 +17,7 @@ public class ProductController {
     @Autowired
     ProductService productService;
 
-    @GetMapping("{productId}")
-    public ResponseEntity<ApiResponse<Product>> getProductById(@PathVariable Integer productId) {
-        ApiResponse<Product> response = new ApiResponse<>();
-        try {
-            Product product = productService.getProductById(productId);
-            response.setMessage("Product Details");
-            response.setData(product);
-        } catch (Exception e) {
-            response.setMessage(e.getMessage());
-            response.setStatus(500);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
-        }
-        return ResponseEntity.ok(response);
-    }
-
-    @GetMapping("/slug/{slug}")
+    @GetMapping("/{slug}")
     public ResponseEntity<ApiResponse<Product>> getProductsByName(@PathVariable String slug) {
         ApiResponse<Product> response = new ApiResponse<>();
         try {
