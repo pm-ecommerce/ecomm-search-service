@@ -1,5 +1,6 @@
 package com.pm.ecommerce.search_service.services;
 
+import com.pm.ecommerce.search_service.models.FilterRequest;
 import com.pm.ecommerce.search_service.models.ProductResult;
 import com.pm.ecommerce.search_service.repositories.SearchRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,18 +15,23 @@ public class SearchService {
     @Autowired
     SearchRepository searchRepository;
 
-    public List<ProductResult> getProductsByFilter(String name, Integer categoryId, Double highPrice, Double lowPrice, Integer limit, Integer page) {
-        Integer offset = (page - 1) * limit;
-        if (name.equals("") && categoryId == 0) {
-            return searchRepository.getProductsByFilterNoNameAndCategory(highPrice, lowPrice, limit, offset).stream().map(p -> new ProductResult(p)).collect(Collectors.toList());
+    public List<ProductResult> getProductsByFilter(FilterRequest request) {
+        Integer offset = (request.getPage() - 1) * request.getLimit();
+
+        if (request.getName().equals("") && request.getCategoryId() == 0) {
+            return searchRepository.getProductsByFilterNoNameAndCategory(request.getHighPrice(), request.getLowPrice(), request.getLimit(), offset, request.getStatus(), request.getCategoryStatus(), request.getVendorStatus()).stream().map(ProductResult::new).collect(Collectors.toList());
         }
-        if (name.equals("")) {
-            System.out.println("no name");
-            return searchRepository.getProductsByFilterNoName(categoryId, highPrice, lowPrice, limit, offset).stream().map(p -> new ProductResult(p)).collect(Collectors.toList());
+
+        if (request.getName().equals("")) {
+            return searchRepository.getProductsByFilterNoName(request.getCategoryId(), request.getHighPrice(), request.getLowPrice(), request.getLimit(), offset, request.getStatus(), request.getCategoryStatus(), request.getVendorStatus()).stream().map(ProductResult::new).collect(Collectors.toList());
         }
-        if (categoryId == 0) {
-            return searchRepository.getProductsByFilterNoCategory(name, highPrice, lowPrice, limit, offset).stream().map(p -> new ProductResult(p)).collect(Collectors.toList());
+
+        if (request.getCategoryId() == 0) {
+            return searchRepository.getProductsByFilterNoCategory(request.getName(), request.getHighPrice(), request.getLowPrice(), request.getLimit(), offset, request.getStatus(), request.getCategoryStatus(), request.getVendorStatus()).stream().map(ProductResult::new).collect(Collectors.toList());
         }
-        return searchRepository.getProductsByFilter(name, categoryId, highPrice, lowPrice, limit, offset).stream().map(p -> new ProductResult(p)).collect(Collectors.toList());
+
+        return searchRepository.getProductsByFilter(request.getName(), request.getCategoryId(), request.getHighPrice(), request.getLowPrice(), request.getLimit(), offset, request.getStatus(), request.getCategoryStatus(), request.getVendorStatus()).stream().map(ProductResult::new).collect(Collectors.toList());
     }
+
 }
+
