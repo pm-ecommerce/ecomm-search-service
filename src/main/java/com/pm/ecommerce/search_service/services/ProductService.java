@@ -21,5 +21,5 @@ public class ProductService {
         return productRepository.findById(id).get();
     }
 
-    public List<Product> getLatestProducts(Integer number) { return productRepository.getLatestProducts(number); }
+    public List<Product> getLatestProducts(Integer number) { return productRepository.getLatestProducts(number, ProductStatus.PUBLISHED); }
 }
