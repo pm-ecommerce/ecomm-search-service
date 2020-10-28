@@ -16,10 +16,15 @@ public class CategoryService {
     CategoryRepository categoryRepository;
 
     public List<Category> getAllCategories() {
-        return categoryRepository.findAll();
+        return categoryRepository.getAllCategories();
     }
 
     public List<ProductResult> getProductsByCategoryId(Integer categoryId) {
         return categoryRepository.getProductsByCategoryId(categoryId, ProductStatus.PUBLISHED).stream().map(p -> new ProductResult(p)).collect(Collectors.toList());
     }
+
+    public List<Category> getRandomCategories() {
+        return categoryRepository.getRandomCategories();
+    }
+
 }
