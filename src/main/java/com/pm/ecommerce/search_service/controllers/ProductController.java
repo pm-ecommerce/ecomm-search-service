@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin
 @RequestMapping("/api/products")
@@ -20,6 +22,21 @@ public class ProductController {
         ApiResponse<Product> response = new ApiResponse<>();
         try {
             Product product = productService.getProductsBySlug(slug);
+            response.setMessage("Product by slug");
+            response.setData(product);
+        } catch (Exception e) {
+            response.setMessage(e.getMessage());
+            response.setStatus(500);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/latest/{number}")
+    public ResponseEntity<ApiResponse<List<Product>>> getProductsByName(@PathVariable Integer number) {
+        ApiResponse<List<Product>> response = new ApiResponse<>();
+        try {
+            List<Product> product = productService.getLatestProducts(number);
             response.setMessage("Product by slug");
             response.setData(product);
         } catch (Exception e) {

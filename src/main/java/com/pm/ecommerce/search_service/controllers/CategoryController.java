@@ -47,4 +47,20 @@ public class CategoryController {
         }
         return ResponseEntity.ok(response);
     }
+
+    @GetMapping("/random")
+    public ResponseEntity<ApiResponse<List<Category>>> getRandomCategories() {
+        ApiResponse<List<Category>> response = new ApiResponse<>();
+        try {
+            List<Category> categoryList = categoryService.getRandomCategories();
+            response.setMessage("List of Category");
+            response.setData(categoryList);
+        } catch (Exception e) {
+            response.setMessage(e.getMessage());
+            response.setStatus(500);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+        return ResponseEntity.ok(response);
+    }
+
 }

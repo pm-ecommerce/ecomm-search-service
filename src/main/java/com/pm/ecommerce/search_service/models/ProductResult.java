@@ -23,4 +23,5 @@ public class ProductResult {
         price = p.getPrice();
         images = p.getImages();
     }
+
 }

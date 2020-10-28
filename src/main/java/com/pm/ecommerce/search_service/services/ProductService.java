@@ -6,6 +6,8 @@ import com.pm.ecommerce.search_service.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ProductService {
     @Autowired
@@ -19,4 +21,5 @@ public class ProductService {
         return productRepository.findById(id).get();
     }
 
+    public List<Product> getLatestProducts(Integer number) { return productRepository.getLatestProducts(number, ProductStatus.PUBLISHED); }
 }

@@ -26,9 +26,9 @@ public class SearchController {
     public ResponseEntity<ApiResponse<List<ProductResult>>> getProductsByFilter(FilterRequest request) {
         ApiResponse<List<ProductResult>> response = new ApiResponse<>();
         try {
-            List<ProductResult> productList = searchService.getProductsByFilterV2(request);
-            response.setMessage("List of Product by filter");
-            response.setData(productList);
+        List<ProductResult> productList = searchService.getProductsByFilter(request);
+        response.setMessage("List of Product by filter");
+        response.setData(productList);
         } catch (Exception e) {
             response.setMessage(e.getMessage());
             response.setStatus(500);
@@ -36,4 +36,5 @@ public class SearchController {
         }
         return ResponseEntity.ok(response);
     }
+
 }

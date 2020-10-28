@@ -11,6 +11,10 @@ public class FilterRequest {
     public Integer limit;
     public Integer page;
 
+    public Integer status;
+    public Integer categoryStatus;
+    public Integer vendorStatus;
+
     public FilterRequest() {
         name = "";
         categoryId = 0;
@@ -18,5 +22,9 @@ public class FilterRequest {
         limit = 20;
         highPrice = Double.MAX_VALUE;
         lowPrice = 0.00;
+
+        status = 4;
+        categoryStatus = 0;
+        vendorStatus = 3;
     }
 }

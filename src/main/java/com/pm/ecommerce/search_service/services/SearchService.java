@@ -1,8 +1,11 @@
 package com.pm.ecommerce.search_service.services;
 
+<<<<<<< HEAD
 import com.pm.ecommerce.entities.*;
 import com.pm.ecommerce.enums.ProductStatus;
 import com.pm.ecommerce.enums.VendorStatus;
+=======
+>>>>>>> 0a43fa90227a74b91a50dbcf10275c6c68e8a44e
 import com.pm.ecommerce.search_service.models.FilterRequest;
 import com.pm.ecommerce.search_service.models.ProductResult;
 import com.pm.ecommerce.search_service.repositories.SearchRepository;
@@ -22,6 +25,7 @@ public class SearchService {
     @Autowired
     SearchRepository searchRepository;
 
+<<<<<<< HEAD
     @Autowired
     EntityManager em;
 
@@ -69,5 +73,25 @@ public class SearchService {
         }
 
         return searchRepository.getProductsByFilter(request.getName(), request.getCategoryId(), request.getHighPrice(), request.getLowPrice(), request.getLimit(), offset).stream().map(ProductResult::new).collect(Collectors.toList());
+=======
+    public List<ProductResult> getProductsByFilter(FilterRequest request) {
+        Integer offset = (request.getPage() - 1) * request.getLimit();
+
+        if (request.getName().equals("") && request.getCategoryId() == 0) {
+            return searchRepository.getProductsByFilterNoNameAndCategory(request.getHighPrice(), request.getLowPrice(), request.getLimit(), offset, request.getStatus(), request.getCategoryStatus(), request.getVendorStatus()).stream().map(ProductResult::new).collect(Collectors.toList());
+        }
+
+        if (request.getName().equals("")) {
+            return searchRepository.getProductsByFilterNoName(request.getCategoryId(), request.getHighPrice(), request.getLowPrice(), request.getLimit(), offset, request.getStatus(), request.getCategoryStatus(), request.getVendorStatus()).stream().map(ProductResult::new).collect(Collectors.toList());
+        }
+
+        if (request.getCategoryId() == 0) {
+            return searchRepository.getProductsByFilterNoCategory(request.getName(), request.getHighPrice(), request.getLowPrice(), request.getLimit(), offset, request.getStatus(), request.getCategoryStatus(), request.getVendorStatus()).stream().map(ProductResult::new).collect(Collectors.toList());
+        }
+
+        return searchRepository.getProductsByFilter(request.getName(), request.getCategoryId(), request.getHighPrice(), request.getLowPrice(), request.getLimit(), offset, request.getStatus(), request.getCategoryStatus(), request.getVendorStatus()).stream().map(ProductResult::new).collect(Collectors.toList());
+>>>>>>> 0a43fa90227a74b91a50dbcf10275c6c68e8a44e
     }
+
 }
+
