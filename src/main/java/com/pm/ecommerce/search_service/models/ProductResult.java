@@ -5,7 +5,7 @@ import com.pm.ecommerce.entities.Image;
 import com.pm.ecommerce.entities.Product;
 import lombok.Data;
 
-import java.util.List;
+import java.util.Set;
 
 @Data
 public class ProductResult {
@@ -14,7 +14,7 @@ public class ProductResult {
     private String name;
     private String slug;
     private double price;
-    private List<Image> images;
+    private Set<Image> images;
 
     public ProductResult(Product p) {
         category = p.getCategory();
