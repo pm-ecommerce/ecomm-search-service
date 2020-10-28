@@ -20,11 +20,13 @@ public class CategoryService {
     }
 
     public List<ProductResult> getProductsByCategoryId(Integer categoryId) {
-        return categoryRepository.getProductsByCategoryId(categoryId, ProductStatus.PUBLISHED).stream().map(p -> new ProductResult(p)).collect(Collectors.toList());
+        return categoryRepository.getProductsByCategoryId(categoryId, ProductStatus.PUBLISHED)
+                .stream()
+                .map(ProductResult::new)
+                .collect(Collectors.toList());
     }
 
     public List<Category> getRandomCategories() {
         return categoryRepository.getRandomCategories();
     }
-
 }

@@ -18,8 +18,10 @@ public class ProductService {
     }
 
     public Product getProductById(Integer id) {
-        return productRepository.findById(id).get();
+        return productRepository.findById(id).orElse(null);
     }
 
-    public List<Product> getLatestProducts(Integer number) { return productRepository.getLatestProducts(number, ProductStatus.PUBLISHED); }
+    public List<Product> getLatestProducts(Integer number) {
+        return productRepository.getLatestProducts(number, ProductStatus.PUBLISHED);
+    }
 }
