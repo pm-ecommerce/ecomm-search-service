@@ -3,6 +3,7 @@ package com.pm.ecommerce.search_service.services;
 import com.pm.ecommerce.entities.Category;
 import com.pm.ecommerce.entities.Product;
 import com.pm.ecommerce.enums.ProductStatus;
+import com.pm.ecommerce.enums.VendorStatus;
 import com.pm.ecommerce.search_service.models.PagedResponse;
 import com.pm.ecommerce.search_service.models.ProductResult;
 import com.pm.ecommerce.search_service.repositories.CategoryRepository;
@@ -21,11 +22,11 @@ public class CategoryService {
     CategoryRepository categoryRepository;
 
     public List<Category> getAllCategories() {
-        return categoryRepository.getAllCategories();
+        return categoryRepository.getAllCategories(ProductStatus.PUBLISHED, VendorStatus.APPROVED);
     }
 
     public List<Category> getAllChildCategories() {
-        return categoryRepository.getAllChildCategories();
+        return categoryRepository.getAllChildCategories(ProductStatus.PUBLISHED, VendorStatus.APPROVED);
     }
 
     public PagedResponse<ProductResult> getProductsByCategoryId(Integer categoryId, Integer limit, Integer page) {
