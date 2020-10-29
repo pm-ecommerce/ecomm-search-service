@@ -18,7 +18,7 @@ public class FilterRequest {
         name = "";
         categoryId = 0;
         page = 1;
-        limit = 20;
+        limit = 10;
         highPrice = Double.MAX_VALUE;
         lowPrice = 0.00;
         status = 4;

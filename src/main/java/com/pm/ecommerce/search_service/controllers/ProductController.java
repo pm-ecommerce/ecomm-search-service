@@ -39,7 +39,7 @@ public class ProductController {
         ApiResponse<List<Product>> response = new ApiResponse<>();
         try {
             List<Product> product = productService.getLatestProducts(number);
-            response.setMessage("Product by slug");
+            response.setMessage("List of latest Products");
             response.setData(product);
         } catch (Exception e) {
             response.setMessage(e.getMessage());
