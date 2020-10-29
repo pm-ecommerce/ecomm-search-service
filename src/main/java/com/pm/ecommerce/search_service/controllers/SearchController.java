@@ -2,6 +2,7 @@ package com.pm.ecommerce.search_service.controllers;
 
 import com.pm.ecommerce.entities.ApiResponse;
 import com.pm.ecommerce.search_service.models.FilterRequest;
+import com.pm.ecommerce.search_service.models.PagedResponse;
 import com.pm.ecommerce.search_service.models.ProductResult;
 import com.pm.ecommerce.search_service.services.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,11 +24,11 @@ public class SearchController {
     SearchService searchService;
 
     @GetMapping("")
-    public ResponseEntity<ApiResponse<List<ProductResult>>> getProductsByFilter(FilterRequest request) {
-        ApiResponse<List<ProductResult>> response = new ApiResponse<>();
+    public ResponseEntity<ApiResponse<PagedResponse<ProductResult>>> getProductsByFilter(FilterRequest request) {
+        ApiResponse<PagedResponse<ProductResult>> response = new ApiResponse<>();
         try {
-        List<ProductResult> productList = searchService.getProductsByFilter(request);
-        response.setMessage("List of Product by filter");
+        PagedResponse<ProductResult> productList = searchService.getProductsByFilter(request);
+        response.setMessage("List of Products by filter");
         response.setData(productList);
         } catch (Exception e) {
             response.setMessage(e.getMessage());
