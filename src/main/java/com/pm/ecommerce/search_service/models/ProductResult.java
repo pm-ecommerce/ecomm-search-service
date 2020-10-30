@@ -9,7 +9,6 @@ import java.util.Set;
 
 @Data
 public class ProductResult {
-
     private Category category;
     private String name;
     private String slug;
@@ -23,5 +22,4 @@ public class ProductResult {
         price = p.getPrice();
         images = p.getImages();
     }
-
 }
