@@ -2,6 +2,7 @@ package com.pm.ecommerce.search_service.models;
 
 import com.pm.ecommerce.entities.Image;
 import com.pm.ecommerce.entities.Product;
+import com.pm.ecommerce.entities.ProductAttribute;
 import lombok.Data;
 
 import java.util.Set;
@@ -15,6 +16,7 @@ public class ProductResult {
     private String slug;
     private double price;
     private Set<Image> images;
+    private Set<ProductAttribute> attributes;
 
     public ProductResult(Product p) {
         id = p.getId();
@@ -23,6 +25,7 @@ public class ProductResult {
         slug = p.getSlug();
         price = p.getPrice();
         images = p.getImages();
+        attributes = p.getAttributes();
     }
 
 }
