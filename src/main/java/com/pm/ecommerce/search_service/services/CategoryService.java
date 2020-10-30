@@ -38,7 +38,7 @@ public class CategoryService {
     }
 
     public List<Category> getRandomCategories() {
-        return categoryRepository.getRandomCategories();
+        return categoryRepository.getRandomCategories(ProductStatus.PUBLISHED,VendorStatus.APPROVED);
     }
 
 }
