@@ -1,7 +1,6 @@
 package com.pm.ecommerce.search_service.controllers;
 
 import com.pm.ecommerce.entities.ApiResponse;
-import com.pm.ecommerce.entities.Product;
 import com.pm.ecommerce.search_service.models.ProductResult;
 import com.pm.ecommerce.search_service.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,15 +20,15 @@ public class ProductController {
     @GetMapping("/{slug}")
     public ResponseEntity<ApiResponse<ProductResult>> getProductsByName(@PathVariable String slug) {
         ApiResponse<ProductResult> response = new ApiResponse<>();
-//        try {
+        try {
         ProductResult product = productService.getProductsBySlug(slug);
             response.setMessage("Product by slug");
             response.setData(product);
-//        } catch (Exception e) {
-//            response.setMessage(e.getMessage());
-//            response.setStatus(500);
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
-//        }
+        } catch (Exception e) {
+            response.setMessage(e.getMessage());
+            response.setStatus(500);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
        return ResponseEntity.ok(response);
     }
 

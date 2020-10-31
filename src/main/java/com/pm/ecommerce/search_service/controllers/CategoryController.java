@@ -81,4 +81,19 @@ public class CategoryController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/{categoryId}")
+    public ResponseEntity<ApiResponse<Category>> getCategoryById(@PathVariable Integer categoryId){
+        ApiResponse<Category> response = new ApiResponse<>();
+        try{
+            Category category = categoryService.getCategoryById(categoryId);
+            response.setMessage("Category");
+            response.setData(category);
+        } catch (Exception e) {
+            response.setMessage(e.getMessage());
+            response.setStatus(500);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+        return ResponseEntity.ok(response);
+    }
+
 }

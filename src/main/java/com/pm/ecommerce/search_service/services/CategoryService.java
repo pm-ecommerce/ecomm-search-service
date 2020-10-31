@@ -29,6 +29,10 @@ public class CategoryService {
         return categoryRepository.getAllChildCategories(ProductStatus.PUBLISHED, VendorStatus.APPROVED);
     }
 
+    public Category getCategoryById(Integer categoryId){
+        return categoryRepository.findById(categoryId).get();
+    }
+
     public PagedResponse<ProductResult> getProductsByCategoryId(Integer categoryId, Integer limit, Integer page) {
         Pageable paging = PageRequest.of(page - 1, limit);
         Page<Product> pagedResult = categoryRepository.getProductsByCategoryId(categoryId,ProductStatus.PUBLISHED, paging);
