@@ -2,6 +2,7 @@ package com.pm.ecommerce.search_service.services;
 
 import com.pm.ecommerce.entities.Product;
 import com.pm.ecommerce.enums.ProductStatus;
+import com.pm.ecommerce.search_service.models.ProductDetails;
 import com.pm.ecommerce.search_service.models.ProductResult;
 import com.pm.ecommerce.search_service.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +16,8 @@ public class ProductService {
     @Autowired
     ProductRepository productRepository;
 
-    public ProductResult getProductsBySlug(String slug) {
-        return new ProductResult(productRepository.getProductsBySlug(slug, ProductStatus.PUBLISHED));
+    public ProductDetails getProductsBySlug(String slug) {
+        return new ProductDetails(productRepository.getProductsBySlug(slug, ProductStatus.PUBLISHED));
     }
 
     public Product getProductById(Integer id) {
