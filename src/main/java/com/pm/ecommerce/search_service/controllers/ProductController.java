@@ -1,7 +1,8 @@
 package com.pm.ecommerce.search_service.controllers;
 
 import com.pm.ecommerce.entities.ApiResponse;
-import com.pm.ecommerce.entities.Product;
+import com.pm.ecommerce.search_service.models.ProductDetails;
+import com.pm.ecommerce.search_service.models.ProductResult;
 import com.pm.ecommerce.search_service.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,10 +19,10 @@ public class ProductController {
     ProductService productService;
 
     @GetMapping("/{slug}")
-    public ResponseEntity<ApiResponse<Product>> getProductsByName(@PathVariable String slug) {
-        ApiResponse<Product> response = new ApiResponse<>();
+    public ResponseEntity<ApiResponse<ProductDetails>> getProductsByName(@PathVariable String slug) {
+        ApiResponse<ProductDetails> response = new ApiResponse<>();
         try {
-            Product product = productService.getProductsBySlug(slug);
+            ProductDetails product = productService.getProductsBySlug(slug);
             response.setMessage("Product by slug");
             response.setData(product);
         } catch (Exception e) {
@@ -33,11 +34,11 @@ public class ProductController {
     }
 
     @GetMapping("/latest/{number}")
-    public ResponseEntity<ApiResponse<List<Product>>> getProductsByName(@PathVariable Integer number) {
-        ApiResponse<List<Product>> response = new ApiResponse<>();
+    public ResponseEntity<ApiResponse<List<ProductResult>>> getProductsByName(@PathVariable Integer number) {
+        ApiResponse<List<ProductResult>> response = new ApiResponse<>();
         try {
-            List<Product> product = productService.getLatestProducts(number);
-            response.setMessage("Product by slug");
+            List<ProductResult> product = productService.getLatestProducts(number);
+            response.setMessage("List of latest Products");
             response.setData(product);
         } catch (Exception e) {
             response.setMessage(e.getMessage());
